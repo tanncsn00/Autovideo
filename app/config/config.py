@@ -1,11 +1,16 @@
 import os
+import sys
 import shutil
 import socket
 
 import toml
 from loguru import logger
 
-root_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
+if getattr(sys, 'frozen', False):
+    # Running as PyInstaller bundle — use exe directory, not temp folder
+    root_dir = os.path.dirname(sys.executable)
+else:
+    root_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
 config_file = f"{root_dir}/config.toml"
 
 
@@ -19,16 +24,19 @@ def load_config():
         if os.path.isfile(example_file):
             shutil.copyfile(example_file, config_file)
             logger.info("copy config.example.toml to config.toml")
+        else:
+            # No config file at all (PyInstaller bundle) — create minimal config
+            logger.warning(f"No config file found, creating empty config at {config_file}")
+            with open(config_file, "w", encoding="utf-8") as f:
+                f.write('[app]\nllm_provider = "gemini"\nvideo_source = "pexels"\n\n[whisper]\n\n[proxy]\n\n[azure]\n\n[siliconflow]\n\n[ui]\nhide_log = false\n')
 
     logger.info(f"load config from file: {config_file}")
 
     try:
         _config_ = toml.load(config_file)
     except Exception as e:
-        logger.warning(f"load config failed: {str(e)}, try to load as utf-8-sig")
-        with open(config_file, mode="r", encoding="utf-8-sig") as fp:
-            _cfg_content = fp.read()
-            _config_ = toml.loads(_cfg_content)
+        logger.warning(f"load config failed: {str(e)}, creating default config")
+        _config_ = {"app": {}, "whisper": {}, "proxy": {}, "azure": {}, "siliconflow": {}, "ui": {"hide_log": False}}
     return _config_
 
 
