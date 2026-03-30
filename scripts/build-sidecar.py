@@ -38,6 +38,10 @@ def build():
         # Collect entire app package
         "--collect-all", "app",
         "--collect-all", "edge_tts",
+        "--collect-all", "moviepy",
+        "--collect-all", "starlette",
+        "--collect-all", "fastapi",
+        "--collect-all", "uvicorn",
         # Hidden imports for all modules uvicorn needs
         "--hidden-import", "uvicorn",
         "--hidden-import", "uvicorn.logging",
