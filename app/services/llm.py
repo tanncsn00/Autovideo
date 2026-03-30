@@ -4,7 +4,10 @@ import re
 import requests
 from typing import List
 
-import g4f
+try:
+    import g4f
+except ImportError:
+    g4f = None
 from loguru import logger
 from openai import AzureOpenAI, OpenAI
 from openai.types.chat import ChatCompletion
