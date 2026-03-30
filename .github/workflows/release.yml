@@ -9,7 +9,30 @@ permissions:
   contents: write
 
 jobs:
-  release:
+  create-release:
+    runs-on: ubuntu-latest
+    outputs:
+      release_id: ${{ steps.create.outputs.id }}
+    steps:
+      - name: Create GitHub Release
+        id: create
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { data } = await github.rest.repos.createRelease({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              tag_name: context.ref.replace('refs/tags/', ''),
+              name: `AutoVideo ${context.ref.replace('refs/tags/', '')}`,
+              body: `Download the installer for your OS below.`,
+              draft: true,
+              prerelease: false,
+            });
+            return data.id;
+          result-encoding: string
+
+  build:
+    needs: create-release
     strategy:
       fail-fast: false
       matrix:
@@ -78,9 +101,6 @@ jobs:
         with:
           projectPath: desktop
           tagName: ${{ github.ref_name }}
-          releaseName: 'AutoVideo ${{ github.ref_name }}'
-          releaseBody: 'See the assets below to download and install AutoVideo ${{ github.ref_name }}.'
-          releaseDraft: true
-          prerelease: false
+          releaseId: ${{ needs.create-release.outputs.release_id }}
           args: ${{ matrix.args }}
           tauriScript: npm run tauri
