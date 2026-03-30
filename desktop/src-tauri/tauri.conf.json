@@ -1,7 +1,7 @@
 {
-  "productName": "MoneyPrinterTurbo",
+  "productName": "AutoVideo",
   "version": "0.1.0",
-  "identifier": "com.moneyprinterturbo.app",
+  "identifier": "com.autovideo.desktop",
   "build": {
     "frontendDist": "../dist",
     "devUrl": "http://localhost:1420",
@@ -11,7 +11,7 @@
   "app": {
     "windows": [
       {
-        "title": "MoneyPrinterTurbo",
+        "title": "AutoVideo",
         "width": 1280,
         "height": 800,
         "minWidth": 960,

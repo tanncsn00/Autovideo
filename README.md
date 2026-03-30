@@ -1,6 +1,6 @@
 <div align="center">
 
-# MoneyPrinterTurbo v2
+# AutoVideo
 
 **AI Video Generator & Auto Publisher**
 
@@ -16,14 +16,14 @@ Turn any topic into a ready-to-publish short video in minutes. AI script writing
 
 ## Download
 
-Go to [**Releases**](https://github.com/tvk/MoneyPrinterTurbo-v2/releases) and download the installer for your OS:
+Go to [**Releases**](../../releases) and download the installer for your OS:
 
 | OS | File |
 |---|---|
-| Windows | `MoneyPrinterTurbo_x.x.x_x64-setup.exe` |
-| macOS (Apple Silicon) | `MoneyPrinterTurbo_x.x.x_aarch64.dmg` |
-| macOS (Intel) | `MoneyPrinterTurbo_x.x.x_x64.dmg` |
-| Linux | `MoneyPrinterTurbo_x.x.x_amd64.AppImage` |
+| Windows | `AutoVideo_x.x.x_x64-setup.exe` |
+| macOS (Apple Silicon) | `AutoVideo_x.x.x_aarch64.dmg` |
+| macOS (Intel) | `AutoVideo_x.x.x_x64.dmg` |
+| Linux | `AutoVideo_x.x.x_amd64.AppImage` |
 
 > **Note:** You also need [Python 3.11+](https://python.org/downloads/) and [ImageMagick](https://imagemagick.org/script/download.php) installed on your system.
 
@@ -64,8 +64,8 @@ Go to [**Releases**](https://github.com/tvk/MoneyPrinterTurbo-v2/releases) and d
 For developers who want to build from source:
 
 ```bash
-git clone https://github.com/tvk/MoneyPrinterTurbo-v2.git
-cd MoneyPrinterTurbo-v2
+git clone <repo-url>
+cd AutoVideo
 
 # Python backend
 pip install -r requirements.txt
@@ -92,10 +92,6 @@ sh webui.sh        # Web UI (macOS/Linux)
 docker-compose up  # Docker
 python main.py     # API only → http://127.0.0.1:8080/docs
 ```
-
-## Credits
-
-Based on [MoneyPrinterTurbo](https://github.com/harry0703/MoneyPrinterTurbo) by [harry0703](https://github.com/harry0703).
 
 ## License
 
