@@ -80,7 +80,18 @@ jobs:
         run: |
           choco install imagemagick --no-progress -y
           New-Item -ItemType Directory -Force -Path desktop/src-tauri/binaries
-          Copy-Item "C:\ProgramData\chocolatey\lib\imagemagick\tools\magick.exe" desktop/src-tauri/binaries/magick.exe
+          $magick = Get-Command magick -ErrorAction SilentlyContinue
+          if ($magick) {
+            Copy-Item $magick.Source desktop/src-tauri/binaries/magick.exe
+          } else {
+            $found = Get-ChildItem -Path "C:\Program Files\ImageMagick*" -Filter "magick.exe" -Recurse -ErrorAction SilentlyContinue | Select-Object -First 1
+            if ($found) {
+              Copy-Item $found.FullName desktop/src-tauri/binaries/magick.exe
+            } else {
+              Write-Error "magick.exe not found anywhere"
+              exit 1
+            }
+          }
           Write-Host "ImageMagick bundled for Windows"
 
       - name: Bundle ImageMagick (macOS)
