@@ -2,6 +2,7 @@ mod commands;
 mod sidecar;
 
 use tauri::Manager;
+use tauri_plugin_shell::ShellExt;
 
 pub struct SidecarPort(pub u16);
 
@@ -36,23 +37,21 @@ pub fn run() {
             }
 
             if !cfg!(debug_assertions) {
-                let app_handle = app.handle().clone();
-                tauri::async_runtime::spawn(async move {
-                    let pid = std::process::id();
-                    let sidecar_result = std::process::Command::new("python-backend")
-                        .arg("--port")
-                        .arg(port.to_string())
-                        .arg("--mode")
-                        .arg("desktop")
-                        .arg("--parent-pid")
-                        .arg(pid.to_string())
-                        .spawn();
+                let pid = std::process::id();
+                let sidecar_command = app.shell()
+                    .sidecar("python-backend")
+                    .expect("failed to create sidecar command")
+                    .args(&[
+                        "--port", &port.to_string(),
+                        "--mode", "desktop",
+                        "--parent-pid", &pid.to_string(),
+                    ]);
 
-                    match sidecar_result {
-                        Ok(_) => println!("Sidecar spawned on port {}", port),
-                        Err(e) => eprintln!("Failed to spawn sidecar: {}", e),
-                    }
-                });
+                let (mut _rx, _child) = sidecar_command
+                    .spawn()
+                    .expect("failed to spawn sidecar");
+
+                println!("Sidecar spawned on port {}", port);
             }
 
             Ok(())

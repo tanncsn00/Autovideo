@@ -1,4 +1,5 @@
 """Build Python sidecar as standalone executable using PyInstaller"""
+import os
 import subprocess
 import sys
 import shutil
@@ -70,5 +71,4 @@ def build():
 
 
 if __name__ == "__main__":
-    import os
     build()

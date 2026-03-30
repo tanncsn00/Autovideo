@@ -24,7 +24,7 @@ jobs:
               repo: context.repo.repo,
               tag_name: context.ref.replace('refs/tags/', ''),
               name: `AutoVideo ${context.ref.replace('refs/tags/', '')}`,
-              body: `Download the installer for your OS below.`,
+              body: `Download the installer for your OS below.\n\n> **Note:** This is a self-contained app. No Python installation required.`,
               draft: true,
               prerelease: false,
             });
@@ -71,7 +71,10 @@ jobs:
           python-version: '3.11'
 
       - name: Install Python dependencies
-        run: pip install -r requirements.txt
+        run: pip install pyinstaller -r requirements.txt
+
+      - name: Build Python sidecar
+        run: python scripts/build-sidecar.py
 
       - name: Set up Node.js
         uses: actions/setup-node@v4

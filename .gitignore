@@ -30,6 +30,7 @@ venv/
 
 # Tauri build
 desktop/src-tauri/target/
+desktop/src-tauri/binaries/
 desktop/dist/
 
 # Build artifacts
