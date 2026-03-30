@@ -12,7 +12,7 @@ jobs:
   create-release:
     runs-on: ubuntu-latest
     outputs:
-      release_id: ${{ steps.create.outputs.id }}
+      release_id: ${{ steps.create.outputs.result }}
     steps:
       - name: Create GitHub Release
         id: create
@@ -28,7 +28,7 @@ jobs:
               draft: true,
               prerelease: false,
             });
-            return data.id;
+            return String(data.id);
           result-encoding: string
 
   build:
@@ -101,6 +101,10 @@ jobs:
         with:
           projectPath: desktop
           tagName: ${{ github.ref_name }}
+          releaseName: 'AutoVideo ${{ github.ref_name }}'
+          releaseBody: 'Download the installer for your OS below.'
+          releaseDraft: true
+          prerelease: false
           releaseId: ${{ needs.create-release.outputs.release_id }}
           args: ${{ matrix.args }}
           tauriScript: npm run tauri
