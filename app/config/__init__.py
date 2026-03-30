@@ -18,7 +18,10 @@ def __init_logger():
         # 获取日志记录中的文件全路径
         file_path = record["file"].path
         # 将绝对路径转换为相对于项目根目录的路径
-        relative_path = os.path.relpath(file_path, root_dir)
+        try:
+            relative_path = os.path.relpath(file_path, root_dir)
+        except ValueError:
+            relative_path = file_path
         # 更新记录中的文件路径
         record["file"].path = f"./{relative_path}"
         # 返回修改后的格式字符串
