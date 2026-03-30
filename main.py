@@ -1,5 +1,6 @@
 import argparse
 import os
+import sys
 
 import uvicorn
 from loguru import logger
@@ -20,6 +21,15 @@ def main():
         os.environ["MPT_PORT"] = str(args.port)
         args.host = "127.0.0.1"
         logger.info(f"Desktop mode: port={args.port}, parent_pid={args.parent_pid}")
+
+        # Auto-detect bundled ImageMagick next to this binary
+        exe_dir = os.path.dirname(os.path.abspath(sys.argv[0] if not getattr(sys, 'frozen', False) else sys.executable))
+        for magick_name in ["magick.exe", "magick"]:
+            magick_path = os.path.join(exe_dir, magick_name)
+            if os.path.isfile(magick_path):
+                os.environ["IMAGEMAGICK_BINARY"] = magick_path
+                logger.info(f"Using bundled ImageMagick: {magick_path}")
+                break
 
         if args.parent_pid:
             import threading

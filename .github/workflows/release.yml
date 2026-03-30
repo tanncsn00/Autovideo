@@ -76,6 +76,31 @@ jobs:
       - name: Build Python sidecar
         run: python scripts/build-sidecar.py
 
+      - name: Bundle ImageMagick (Windows)
+        if: matrix.platform == 'windows-latest'
+        shell: bash
+        run: |
+          mkdir -p desktop/src-tauri/binaries
+          curl -L -o im.zip "https://imagemagick.org/archive/binaries/ImageMagick-7.1.1-47-portable-Q16-x64.zip"
+          unzip -o im.zip magick.exe -d desktop/src-tauri/binaries/
+          echo "ImageMagick bundled for Windows"
+
+      - name: Bundle ImageMagick (macOS)
+        if: contains(matrix.platform, 'macos')
+        run: |
+          brew install imagemagick
+          mkdir -p desktop/src-tauri/binaries
+          cp $(which magick) desktop/src-tauri/binaries/magick
+          echo "ImageMagick bundled for macOS"
+
+      - name: Bundle ImageMagick (Linux)
+        if: matrix.platform == 'ubuntu-22.04'
+        run: |
+          sudo apt-get install -y imagemagick
+          mkdir -p desktop/src-tauri/binaries
+          cp $(which magick || which convert) desktop/src-tauri/binaries/magick
+          echo "ImageMagick bundled for Linux"
+
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
