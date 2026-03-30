@@ -39,8 +39,7 @@
       "icons/icon.ico"
     ],
     "resources": [
-      "../../resource/**/*",
-      "binaries/magick*"
+      "../../resource/**/*"
     ]
   }
 }

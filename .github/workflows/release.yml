@@ -74,42 +74,6 @@ jobs:
       - name: Build Python sidecar
         run: python scripts/build-sidecar.py
 
-      - name: Bundle ImageMagick (Windows)
-        if: matrix.platform == 'windows-latest'
-        shell: pwsh
-        run: |
-          choco install imagemagick --no-progress -y
-          New-Item -ItemType Directory -Force -Path desktop/src-tauri/binaries
-          $magick = Get-Command magick -ErrorAction SilentlyContinue
-          if ($magick) {
-            Copy-Item $magick.Source desktop/src-tauri/binaries/magick.exe
-          } else {
-            $found = Get-ChildItem -Path "C:\Program Files\ImageMagick*" -Filter "magick.exe" -Recurse -ErrorAction SilentlyContinue | Select-Object -First 1
-            if ($found) {
-              Copy-Item $found.FullName desktop/src-tauri/binaries/magick.exe
-            } else {
-              Write-Error "magick.exe not found anywhere"
-              exit 1
-            }
-          }
-          Write-Host "ImageMagick bundled for Windows"
-
-      - name: Bundle ImageMagick (macOS)
-        if: contains(matrix.platform, 'macos')
-        run: |
-          brew install imagemagick
-          mkdir -p desktop/src-tauri/binaries
-          cp $(which magick) desktop/src-tauri/binaries/magick
-          echo "ImageMagick bundled for macOS"
-
-      - name: Bundle ImageMagick (Linux)
-        if: matrix.platform == 'ubuntu-22.04'
-        run: |
-          sudo apt-get install -y imagemagick
-          mkdir -p desktop/src-tauri/binaries
-          cp $(which magick || which convert) desktop/src-tauri/binaries/magick
-          echo "ImageMagick bundled for Linux"
-
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
