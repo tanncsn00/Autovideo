@@ -1,6 +1,8 @@
+import { useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { AppShell } from "./components/layout/AppShell";
+import { useAppStore } from "./stores/appStore";
 import Dashboard from "./pages/Dashboard";
 import Create from "./pages/Create";
 import Projects from "./pages/Projects";
@@ -19,6 +21,21 @@ const queryClient = new QueryClient({
 });
 
 export default function App() {
+  const setSidecarPort = useAppStore((s) => s.setSidecarPort);
+
+  // Fetch actual sidecar port from Rust backend on startup
+  useEffect(() => {
+    (async () => {
+      try {
+        const { invoke } = await import("@tauri-apps/api/core");
+        const port = await invoke<number>("get_sidecar_port");
+        if (port) setSidecarPort(port);
+      } catch {
+        // Not in Tauri (dev browser) — use default 18080
+      }
+    })();
+  }, [setSidecarPort]);
+
   return (
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>

@@ -19,7 +19,7 @@ export function AppShell() {
         }}
       >
         <div style={{ fontSize: 32, animation: "spin 1s linear infinite" }}>&#x27F3;</div>
-        <p style={{ color: "hsl(var(--muted-foreground))" }}>Starting MoneyPrinterTurbo...</p>
+        <p style={{ color: "hsl(var(--muted-foreground))" }}>Starting AutoVideo...</p>
         <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
       </div>
     );

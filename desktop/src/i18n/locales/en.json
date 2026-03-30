@@ -1,5 +1,5 @@
 {
-  "app": { "name": "MoneyPrinterTurbo", "loading": "Starting MoneyPrinterTurbo..." },
+  "app": { "name": "AutoVideo", "loading": "Starting AutoVideo..." },
   "nav": {
     "dashboard": "Dashboard",
     "create": "Create Video",
@@ -14,7 +14,7 @@
   },
   "dashboard": {
     "title": "Dashboard",
-    "welcome": "Welcome to MoneyPrinterTurbo",
+    "welcome": "Welcome to AutoVideo",
     "recent": "Recent Projects",
     "quick_create": "Quick Create",
     "no_projects": "No projects yet. Create your first video!",
