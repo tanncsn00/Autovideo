@@ -1,0 +1,22 @@
+{
+    "id": "youtube-tutorial",
+    "name": "Quick Tutorial",
+    "description": "Step-by-step tutorial format — clear and educational",
+    "category": "youtube-shorts",
+    "platform": "youtube",
+    "video_aspect": "9:16",
+    "video_transition_mode": "FadeIn",
+    "video_clip_duration": 5,
+    "voice_name": "en-US-AriaNeural-Female",
+    "voice_rate": 1.0,
+    "bgm_volume": 0.1,
+    "subtitle_enabled": true,
+    "subtitle_position": "bottom",
+    "font_size": 52,
+    "text_fore_color": "#FFFFFF",
+    "stroke_color": "#000000",
+    "stroke_width": 1.5,
+    "caption_style": "documentary",
+    "paragraph_number": 2,
+    "video_language": "en"
+}

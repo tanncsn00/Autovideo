@@ -1,0 +1,23 @@
+{
+    "id": "corporate-company-intro",
+    "name": "Company Introduction",
+    "description": "Professional company overview — suitable for LinkedIn and website",
+    "category": "corporate",
+    "platform": "general",
+    "video_aspect": "16:9",
+    "video_transition_mode": "FadeIn",
+    "video_clip_duration": 7,
+    "voice_name": "en-US-AriaNeural-Female",
+    "voice_rate": 0.95,
+    "bgm_volume": 0.15,
+    "subtitle_enabled": true,
+    "subtitle_position": "bottom",
+    "font_size": 44,
+    "text_fore_color": "#FFFFFF",
+    "stroke_color": "#1a1a2e",
+    "stroke_width": 1.0,
+    "caption_style": "corporate",
+    "color_preset": "cool",
+    "paragraph_number": 3,
+    "video_language": "en"
+}

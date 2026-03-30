@@ -1,0 +1,23 @@
+{
+    "id": "instagram-lifestyle",
+    "name": "Lifestyle Reel",
+    "description": "Aesthetic lifestyle content — warm tones, clean typography",
+    "category": "instagram-reels",
+    "platform": "instagram",
+    "video_aspect": "9:16",
+    "video_transition_mode": "FadeIn",
+    "video_clip_duration": 4,
+    "voice_name": "en-US-JennyNeural-Female",
+    "voice_rate": 1.0,
+    "bgm_volume": 0.25,
+    "subtitle_enabled": true,
+    "subtitle_position": "center",
+    "font_size": 60,
+    "text_fore_color": "#FFFFFF",
+    "stroke_color": "#000000",
+    "stroke_width": 1.0,
+    "caption_style": "tiktok-viral",
+    "color_preset": "warm",
+    "paragraph_number": 1,
+    "video_language": "en"
+}

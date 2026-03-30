@@ -1,0 +1,125 @@
+[app]
+video_source = "pexels" # "pexels" or "pixabay"
+hide_config = false
+
+# Pexels API Key (free)
+# Register at https://www.pexels.com/api/
+pexels_api_keys = []
+
+# Pixabay API Key (free)
+# Register at https://pixabay.com/api/docs/
+pixabay_api_keys = []
+
+# LLM Provider
+# Supported: openai, moonshot, azure, qwen, deepseek, gemini, ollama, g4f, oneapi, cloudflare, ernie, modelscope
+llm_provider = "gemini"
+
+########## Pollinations AI
+pollinations_api_key = ""
+pollinations_base_url = "https://pollinations.ai/api/v1"
+pollinations_model_name = "openai-fast"
+
+########## Ollama
+ollama_base_url = ""
+ollama_model_name = ""
+
+########## OpenAI
+# https://platform.openai.com/api-keys
+openai_api_key = ""
+openai_base_url = ""
+openai_model_name = "gpt-4o-mini"
+
+########## Moonshot
+# https://platform.moonshot.cn/console/api-keys
+moonshot_api_key = ""
+moonshot_base_url = "https://api.moonshot.cn/v1"
+moonshot_model_name = "moonshot-v1-8k"
+
+########## OneAPI
+oneapi_api_key = ""
+oneapi_base_url = ""
+oneapi_model_name = ""
+
+########## G4F
+g4f_model_name = "gpt-3.5-turbo"
+
+########## Azure OpenAI
+azure_api_key = ""
+azure_base_url = ""
+azure_model_name = "gpt-35-turbo"
+azure_api_version = "2024-02-15-preview"
+
+########## Google Gemini (free)
+# https://aistudio.google.com/apikey
+gemini_api_key = ""
+gemini_model_name = "gemini-2.5-flash"
+
+########## Qwen
+# https://dashscope.console.aliyun.com/apiKey
+qwen_api_key = ""
+qwen_model_name = "qwen-max"
+
+########## DeepSeek
+# https://platform.deepseek.com/api_keys
+deepseek_api_key = ""
+deepseek_base_url = "https://api.deepseek.com"
+deepseek_model_name = "deepseek-chat"
+
+########## ModelScope
+modelscope_api_key = ""
+modelscope_base_url = "https://api-inference.modelscope.cn/v1/"
+modelscope_model_name = "Qwen/Qwen3-32B"
+
+# Subtitle provider: "edge" or "whisper" (leave empty to disable subtitles)
+subtitle_provider = "edge"
+
+# ImageMagick path (auto-detected on macOS/Linux, set manually on Windows)
+# imagemagick_path = "C:\\Program Files\\ImageMagick-7.1.1-Q16-HDRI\\magick.exe"
+
+# FFmpeg path (auto-downloaded, set manually if needed)
+# ffmpeg_path = "C:\\Users\\you\\Downloads\\ffmpeg.exe"
+
+# API endpoint for video download URLs
+endpoint = ""
+
+# Video material storage ("" = default, "task" = per-task folder, or absolute path)
+material_directory = ""
+
+# Redis (optional, for distributed task management)
+enable_redis = false
+redis_host = "localhost"
+redis_port = 6379
+redis_db = 0
+redis_password = ""
+
+# Max concurrent video generation tasks
+max_concurrent_tasks = 5
+
+
+[whisper]
+# Only used when subtitle_provider = "whisper"
+model_size = "large-v3"
+device = "CPU"        # "CPU" or "cuda"
+compute_type = "int8"  # "int8", "float16", "int8_float16"
+
+
+[proxy]
+# Proxy for API requests
+# http = "http://user:pass@proxy:1234"
+# https = "http://user:pass@proxy:1234"
+
+
+[azure]
+# Azure Speech API (for Azure TTS voices)
+# https://portal.azure.com/
+speech_key = ""
+speech_region = ""
+
+
+[siliconflow]
+# https://siliconflow.cn
+api_key = ""
+
+
+[ui]
+hide_log = false

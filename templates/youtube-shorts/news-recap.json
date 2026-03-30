@@ -1,0 +1,23 @@
+{
+    "id": "youtube-news-recap",
+    "name": "News Recap",
+    "description": "Breaking news style — urgent pacing with professional look",
+    "category": "youtube-shorts",
+    "platform": "youtube",
+    "video_aspect": "9:16",
+    "video_transition_mode": "SlideIn",
+    "video_clip_duration": 4,
+    "voice_name": "en-US-AndrewNeural-Male",
+    "voice_rate": 1.1,
+    "bgm_volume": 0.12,
+    "subtitle_enabled": true,
+    "subtitle_position": "bottom",
+    "font_size": 56,
+    "text_fore_color": "#FFFFFF",
+    "stroke_color": "#CC0000",
+    "stroke_width": 2.0,
+    "caption_style": "documentary",
+    "color_preset": "cool",
+    "paragraph_number": 2,
+    "video_language": "en"
+}

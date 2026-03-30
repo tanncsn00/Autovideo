@@ -1,0 +1,22 @@
+{
+    "id": "corporate-product-demo",
+    "name": "Product Demo",
+    "description": "Professional product demonstration — clean, corporate style",
+    "category": "corporate",
+    "platform": "general",
+    "video_aspect": "16:9",
+    "video_transition_mode": "FadeIn",
+    "video_clip_duration": 6,
+    "voice_name": "en-US-AndrewNeural-Male",
+    "voice_rate": 1.0,
+    "bgm_volume": 0.1,
+    "subtitle_enabled": true,
+    "subtitle_position": "bottom",
+    "font_size": 48,
+    "text_fore_color": "#FFFFFF",
+    "stroke_color": "#333333",
+    "stroke_width": 1.0,
+    "caption_style": "corporate",
+    "paragraph_number": 3,
+    "video_language": "en"
+}

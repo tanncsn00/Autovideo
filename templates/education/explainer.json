@@ -1,0 +1,22 @@
+{
+    "id": "education-explainer",
+    "name": "Explainer Video",
+    "description": "Clear educational explanations — good pacing for learning",
+    "category": "education",
+    "platform": "general",
+    "video_aspect": "16:9",
+    "video_transition_mode": "FadeIn",
+    "video_clip_duration": 5,
+    "voice_name": "en-US-AriaNeural-Female",
+    "voice_rate": 0.95,
+    "bgm_volume": 0.08,
+    "subtitle_enabled": true,
+    "subtitle_position": "bottom",
+    "font_size": 50,
+    "text_fore_color": "#FFFFFF",
+    "stroke_color": "#000000",
+    "stroke_width": 1.5,
+    "caption_style": "documentary",
+    "paragraph_number": 3,
+    "video_language": "en"
+}

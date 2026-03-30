@@ -1,0 +1,23 @@
+{
+    "id": "youtube-story-time",
+    "name": "Story Time",
+    "description": "Narrative storytelling — warm cinematic feel with relaxed pacing",
+    "category": "youtube-shorts",
+    "platform": "youtube",
+    "video_aspect": "9:16",
+    "video_transition_mode": "FadeOut",
+    "video_clip_duration": 6,
+    "voice_name": "en-US-AriaNeural-Female",
+    "voice_rate": 0.95,
+    "bgm_volume": 0.2,
+    "subtitle_enabled": true,
+    "subtitle_position": "bottom",
+    "font_size": 54,
+    "text_fore_color": "#FFFFFF",
+    "stroke_color": "#000000",
+    "stroke_width": 1.5,
+    "caption_style": "default",
+    "color_preset": "warm",
+    "paragraph_number": 2,
+    "video_language": "en"
+}
