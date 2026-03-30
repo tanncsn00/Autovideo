@@ -41,8 +41,6 @@ jobs:
             args: ''
           - platform: macos-latest
             args: '--target aarch64-apple-darwin'
-          - platform: macos-13-large
-            args: '--target x86_64-apple-darwin'
           - platform: windows-latest
             args: ''
 
