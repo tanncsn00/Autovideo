@@ -11,8 +11,8 @@ from pathlib import Path
 from platformdirs import user_data_dir
 
 
-APP_NAME = "MoneyPrinterTurbo"
-APP_AUTHOR = "MoneyPrinterTurbo"
+APP_NAME = "AutoVideo"
+APP_AUTHOR = "AutoVideo"
 
 
 def get_config_dir() -> Path:
