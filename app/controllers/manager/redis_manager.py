@@ -1,7 +1,10 @@
 import json
 from typing import Dict
 
-import redis
+try:
+    import redis
+except ImportError:
+    redis = None
 
 from app.controllers.manager.base_manager import TaskManager
 from app.models.schema import VideoParams
