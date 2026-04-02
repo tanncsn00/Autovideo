@@ -50,7 +50,7 @@ export function Sidebar() {
       >
         {!collapsed && (
           <span style={{ fontWeight: 700, fontSize: 14, whiteSpace: "nowrap" }}>
-            MoneyPrinterTurbo
+            AutoVideo
           </span>
         )}
         <button

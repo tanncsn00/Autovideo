@@ -1162,7 +1162,51 @@ def tts(
         else:
             logger.error(f"Invalid gemini voice name format: {voice_name}")
             return None
+    # FPT.AI voices
+    if voice_name.startswith("fpt-"):
+        return _fpt_tts(text, voice_name, voice_rate, voice_file)
+
+    # VBee voices
+    if voice_name.startswith("vbee-"):
+        return _vbee_tts(text, voice_name, voice_rate, voice_file)
+
     return azure_tts_v1(text, voice_name, voice_rate, voice_file)
+
+
+def _fpt_tts(text, voice_name, voice_rate, voice_file):
+    """Generate audio using FPT.AI plugin"""
+    try:
+        from app.plugins import plugin_manager
+        fpt_plugin = plugin_manager.get_plugin("tts", "fpt-ai")
+        if fpt_plugin and fpt_plugin.is_available():
+            import asyncio
+            asyncio.run(fpt_plugin.synthesize(text, voice_name, voice_rate, voice_file))
+            if os.path.exists(voice_file) and os.path.getsize(voice_file) > 0:
+                logger.info(f"FPT.AI TTS completed: {voice_file}")
+                return None  # No SubMaker for FPT — subtitle will use Whisper fallback
+        else:
+            logger.error("FPT.AI plugin not available. Set fpt_ai_api_key in Settings.")
+    except Exception as e:
+        logger.error(f"FPT.AI TTS failed: {e}")
+    return None
+
+
+def _vbee_tts(text, voice_name, voice_rate, voice_file):
+    """Generate audio using VBee plugin"""
+    try:
+        from app.plugins import plugin_manager
+        vbee_plugin = plugin_manager.get_plugin("tts", "vbee")
+        if vbee_plugin and vbee_plugin.is_available():
+            import asyncio
+            asyncio.run(vbee_plugin.synthesize(text, voice_name, voice_rate, voice_file))
+            if os.path.exists(voice_file) and os.path.getsize(voice_file) > 0:
+                logger.info(f"VBee TTS completed: {voice_file}")
+                return None
+        else:
+            logger.error("VBee plugin not available. Set vbee_api_key in Settings.")
+    except Exception as e:
+        logger.error(f"VBee TTS failed: {e}")
+    return None
 
 
 def convert_rate_to_percent(rate: float) -> str:

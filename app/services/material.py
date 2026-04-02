@@ -15,11 +15,21 @@ requested_count = 0
 
 
 def get_api_key(cfg_key: str):
-    api_keys = config.app.get(cfg_key)
+    # Check env var first (set by desktop Settings UI)
+    from app.config.config import get_api_key as _get_key
+    env_val = _get_key(cfg_key)
+    if env_val:
+        api_keys = env_val
+    else:
+        api_keys = config.app.get(cfg_key)
+
+    # Handle empty list
+    if isinstance(api_keys, list) and len(api_keys) == 0:
+        api_keys = None
+
     if not api_keys:
         raise ValueError(
-            f"\n\n##### {cfg_key} is not set #####\n\nPlease set it in the config.toml file: {config.config_file}\n\n"
-            f"{utils.to_json(config.app)}"
+            f"\n\n##### {cfg_key} is not set #####\n\nPlease set it in the Settings page.\n"
         )
 
     # if only one key is provided, return it

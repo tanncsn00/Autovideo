@@ -118,23 +118,21 @@ export default function Create() {
     if (!params.video_subject) return;
     setScriptLoading(true);
     try {
-      const result = await apiFetch<any>("/api/v1/videos", {
+      const result = await apiFetch<any>("/api/v1/scripts", {
         method: "POST",
         body: JSON.stringify({
           video_subject: params.video_subject,
           video_language: params.video_language || "en",
           paragraph_number: params.paragraph_number || 1,
-          prompt_template: (params as any).prompt_template || "",
-          voice_name: params.voice_name || "en-US-AriaNeural-Female",
         }),
       });
-      if (result?.task_id) {
-        setScriptTaskId(result.task_id);
+      if (result?.video_script) {
+        updateParams({ video_script: result.video_script });
       }
     } catch (e) {
       console.error(e);
-      setScriptLoading(false);
     }
+    setScriptLoading(false);
   };
 
   const handlePreviewVoice = async (voiceName: string) => {
@@ -366,6 +364,7 @@ export default function Create() {
                 <option value="none">None</option><option value="cinematic">Cinematic</option><option value="warm">Warm</option>
                 <option value="cool">Cool</option><option value="vintage">Vintage</option><option value="noir">Noir (B&W)</option>
                 <option value="vibrant">Vibrant</option><option value="muted">Muted</option><option value="high_contrast">High Contrast</option>
+                <option value="dark_motivation">Dark Motivation</option><option value="dark_cinematic">Dark Cinematic</option>
               </select></label>
             <label><div style={labelStyle}>Caption Style</div>
               <select value={(params as any).caption_style || "default"} onChange={e => updateParams({ caption_style: e.target.value } as any)} style={selectStyle}>
@@ -645,9 +644,9 @@ export default function Create() {
       {/* Navigation */}
       <div style={{ display: "flex", justifyContent: "space-between", marginTop: 16 }}>
         <button onClick={() => setStep(Math.max(0, currentStep - 1))} disabled={currentStep === 0}
-          style={{ ...btnOutline, opacity: currentStep === 0 ? 0.3 : 1 }}>\← Back</button>
+          style={{ ...btnOutline, opacity: currentStep === 0 ? 0.3 : 1 }}>{"← Back"}</button>
         <button onClick={() => setStep(Math.min(STEPS.length - 1, currentStep + 1))} disabled={currentStep === STEPS.length - 1}
-          style={{ ...btnPrimary, opacity: currentStep === STEPS.length - 1 ? 0.3 : 1 }}>Next \u2192</button>
+          style={{ ...btnPrimary, opacity: currentStep === STEPS.length - 1 ? 0.3 : 1 }}>{"Next →"}</button>
       </div>
     </div>
   );

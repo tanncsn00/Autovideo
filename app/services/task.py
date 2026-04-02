@@ -120,12 +120,14 @@ def generate_audio(task_id, params, video_script):
             voice_rate=params.voice_rate,
             voice_file=audio_file,
         )
-        if sub_maker is None:
+        # Check if audio file was actually created (sub_maker can be None for FPT/VBee voices)
+        if not os.path.exists(audio_file) or os.path.getsize(audio_file) == 0:
             sm.state.update_task(task_id, state=const.TASK_STATE_FAILED)
             logger.error(
                 """failed to generate audio:
 1. check if the language of the voice matches the language of the video script.
-2. check if the network is available. If you are in China, it is recommended to use a VPN and enable the global traffic mode.
+2. check if the network is available.
+3. if using FPT/VBee voice, check your API key in Settings.
             """.strip()
             )
             return None, None, None

@@ -424,17 +424,32 @@ class TikTokAutoPlugin(PublisherPlugin):
                 logger.info("Please login to TikTok in the browser window...")
 
                 logged_in = False
-                for _ in range(150):  # 5 min timeout
+                for check_idx in range(150):  # 5 min timeout
                     _time.sleep(2)
-                    current_url = page.url
+                    try:
+                        current_url = page.url
+                    except Exception:
+                        continue
+
+                    # URL no longer on login page
                     if "/login" not in current_url and "tiktok.com" in current_url:
                         logged_in = True
+                        logger.info(f"Login detected via URL: {current_url}")
                         break
+
+                    # Check session cookies (multiple possible names)
                     current_cookies = context.cookies()
-                    has_session = any(c.get("name") in ("sessionid", "sid_tt", "uid_tt") for c in current_cookies)
+                    session_names = {"sessionid", "sid_tt", "uid_tt", "sid_guard", "passport_csrf_token"}
+                    has_session = any(c.get("name") in session_names for c in current_cookies)
                     if has_session:
                         logged_in = True
+                        logger.info("Login detected via session cookies!")
+                        # Wait for page to settle after QR login
+                        _time.sleep(5)
                         break
+
+                    if check_idx % 15 == 0 and check_idx > 0:
+                        logger.info(f"Waiting for login... ({check_idx*2}s)")
 
                 if logged_in:
                     logger.info(f"Login detected! URL: {page.url}")

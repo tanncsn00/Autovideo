@@ -19,6 +19,8 @@ def apply_color_preset(clip: Clip, preset: str) -> Clip:
         "vibrant": _vibrant,
         "muted": _muted,
         "high_contrast": _high_contrast,
+        "dark_motivation": _dark_motivation,
+        "dark_cinematic": _dark_cinematic,
     }
     fn = presets.get(preset)
     if fn is None:
@@ -106,6 +108,35 @@ def _muted(frame: np.ndarray) -> np.ndarray:
 def _high_contrast(frame: np.ndarray) -> np.ndarray:
     """High contrast"""
     return _adjust_contrast(frame.astype(np.float32), 1.4).astype(np.uint8)
+
+
+def _dark_motivation(frame: np.ndarray) -> np.ndarray:
+    """Dark motivation style: very dark, desaturated, high contrast — like hustle/grind videos"""
+    result = frame.astype(np.float32)
+    # Heavy desaturation (almost B&W but keep slight color)
+    gray = result.mean(axis=2, keepdims=True)
+    result = gray + (result - gray) * 0.15  # Keep only 15% color
+    # Darken significantly
+    result = result * 0.55
+    # Boost contrast hard
+    result = _adjust_contrast(result, 1.6)
+    # Crush blacks
+    result = np.clip(result - 15, 0, 255)
+    return result.astype(np.uint8)
+
+
+def _dark_cinematic(frame: np.ndarray) -> np.ndarray:
+    """Dark cinematic: moody, teal shadows, dark overall"""
+    result = frame.astype(np.float32)
+    # Darken
+    result = result * 0.65
+    # Teal in shadows
+    mask = (result.mean(axis=2, keepdims=True) < 60).astype(np.float32)
+    result[:, :, 2] = np.clip(result[:, :, 2] + mask[:, :, 0] * 25, 0, 255)
+    result[:, :, 1] = np.clip(result[:, :, 1] + mask[:, :, 0] * 10, 0, 255)
+    # High contrast
+    result = _adjust_contrast(result, 1.4)
+    return np.clip(result, 0, 255).astype(np.uint8)
 
 
 # ═══════════════════════════════════════════
@@ -220,5 +251,5 @@ def add_watermark_text(clip: Clip, text: str, position: str = "bottom-right",
 
 AVAILABLE_PRESETS = [
     "none", "cinematic", "warm", "cool", "vintage", "noir",
-    "vibrant", "muted", "high_contrast",
+    "vibrant", "muted", "high_contrast", "dark_motivation", "dark_cinematic",
 ]
